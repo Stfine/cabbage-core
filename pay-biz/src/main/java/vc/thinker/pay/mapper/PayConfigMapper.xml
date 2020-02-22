@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vc.thinker.pay.mapper.PayConfigMapper">
+  <resultMap id="BaseResultMap" type="vc.thinker.pay.model.PayConfig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="alipay_rate" jdbcType="DECIMAL" property="alipayRate" />
+    <result column="app_private_key" jdbcType="VARCHAR" property="appPrivateKey" />
+    <result column="app_public_key" jdbcType="VARCHAR" property="appPublicKey" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="currency_code" jdbcType="VARCHAR" property="currencyCode" />
+    <result column="install" jdbcType="BIT" property="install" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="partner" jdbcType="VARCHAR" property="partner" />
+    <result column="poundage" jdbcType="DECIMAL" property="poundage" />
+    <result column="safe_key" jdbcType="VARCHAR" property="safeKey" />
+    <result column="seller_email" jdbcType="VARCHAR" property="sellerEmail" />
+    <result column="tenpay_key" jdbcType="VARCHAR" property="tenpayKey" />
+    <result column="tenpay_partner" jdbcType="VARCHAR" property="tenpayPartner" />
+    <result column="trade_mode" jdbcType="INTEGER" property="tradeMode" />
+    <result column="wx_appSecret" jdbcType="VARCHAR" property="wxAppsecret" />
+    <result column="wx_appid" jdbcType="VARCHAR" property="wxAppid" />
+    <result column="wx_paySignKey" jdbcType="VARCHAR" property="wxPaysignkey" />
+    <result column="pay_channel" jdbcType="VARCHAR" property="payChannel" />
+    <result column="sign_type" jdbcType="VARCHAR" property="signType" />
+    <result column="alipay_app_id" jdbcType="VARCHAR" property="alipayAppId" />
+    <result column="alipay_public_key" jdbcType="VARCHAR" property="alipayPublicKey" />
+    <result column="wx_cert_local_path" jdbcType="VARCHAR" property="wxCertLocalPath" />
+    <result column="wx_rsa_public" jdbcType="VARCHAR" property="wxRsaPublic" />
+    <result column="stripe_api_key" jdbcType="VARCHAR" property="stripeApiKey" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="BOResultMap" type="vc.thinker.pay.bo.PayConfigBO" />
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, alipay_rate, app_private_key, app_public_key, content, currency_code, install, 
+    mark, name, partner, poundage, safe_key, seller_email, tenpay_key, tenpay_partner, 
+    trade_mode, wx_appSecret, wx_appid, wx_paySignKey, pay_channel, sign_type, alipay_app_id, 
+    alipay_public_key, wx_cert_local_path, wx_rsa_public, stripe_api_key
+  </sql>
+  <select id="selectByExample" parameterType="vc.thinker.pay.model.PayConfigExample" resultMap="BOResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pay_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      limit ${limit}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BOResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pay_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="vc.thinker.pay.model.PayConfigExample">
+    delete from pay_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="vc.thinker.pay.model.PayConfig" useGeneratedKeys="true">
+    insert into pay_config (id, alipay_rate, app_private_key, 
+      app_public_key, content, currency_code, 
+      install, mark, name, partner, 
+      poundage, safe_key, seller_email, 
+      tenpay_key, tenpay_partner, trade_mode, 
+      wx_appSecret, wx_appid, wx_paySignKey, 
+      pay_channel, sign_type, alipay_app_id, 
+      alipay_public_key, wx_cert_local_path, wx_rsa_public, 
+      stripe_api_key)
+    values (#{id,jdbcType=BIGINT}, #{alipayRate,jdbcType=DECIMAL}, #{appPrivateKey,jdbcType=VARCHAR}, 
+      #{appPublicKey,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{currencyCode,jdbcType=VARCHAR}, 
+      #{install,jdbcType=BIT}, #{mark,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{partner,jdbcType=VARCHAR}, 
+      #{poundage,jdbcType=DECIMAL}, #{safeKey,jdbcType=VARCHAR}, #{sellerEmail,jdbcType=VARCHAR}, 
+      #{tenpayKey,jdbcType=VARCHAR}, #{tenpayPartner,jdbcType=VARCHAR}, #{tradeMode,jdbcType=INTEGER}, 
+      #{wxAppsecret,jdbcType=VARCHAR}, #{wxAppid,jdbcType=VARCHAR}, #{wxPaysignkey,jdbcType=VARCHAR}, 
+      #{payChannel,jdbcType=VARCHAR}, #{signType,jdbcType=VARCHAR}, #{alipayAppId,jdbcType=VARCHAR}, 
+      #{alipayPublicKey,jdbcType=VARCHAR}, #{wxCertLocalPath,jdbcType=VARCHAR}, #{wxRsaPublic,jdbcType=VARCHAR}, 
+      #{stripeApiKey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="vc.thinker.pay.model.PayConfig" useGeneratedKeys="true">
+    insert into pay_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="alipayRate != null">
+        alipay_rate,
+      </if>
+      <if test="appPrivateKey != null">
+        app_private_key,
+      </if>
+      <if test="appPublicKey != null">
+        app_public_key,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="currencyCode != null">
+        currency_code,
+      </if>
+      <if test="install != null">
+        install,
+      </if>
+      <if test="mark != null">
+        mark,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="partner != null">
+        partner,
+      </if>
+      <if test="poundage != null">
+        poundage,
+      </if>
+      <if test="safeKey != null">
+        safe_key,
+      </if>
+      <if test="sellerEmail != null">
+        seller_email,
+      </if>
+      <if test="tenpayKey != null">
+        tenpay_key,
+      </if>
+      <if test="tenpayPartner != null">
+        tenpay_partner,
+      </if>
+      <if test="tradeMode != null">
+        trade_mode,
+      </if>
+      <if test="wxAppsecret != null">
+        wx_appSecret,
+      </if>
+      <if test="wxAppid != null">
+        wx_appid,
+      </if>
+      <if test="wxPaysignkey != null">
+        wx_paySignKey,
+      </if>
+      <if test="payChannel != null">
+        pay_channel,
+      </if>
+      <if test="signType != null">
+        sign_type,
+      </if>
+      <if test="alipayAppId != null">
+        alipay_app_id,
+      </if>
+      <if test="alipayPublicKey != null">
+        alipay_public_key,
+      </if>
+      <if test="wxCertLocalPath != null">
+        wx_cert_local_path,
+      </if>
+      <if test="wxRsaPublic != null">
+        wx_rsa_public,
+      </if>
+      <if test="stripeApiKey != null">
+        stripe_api_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="alipayRate != null">
+        #{alipayRate,jdbcType=DECIMAL},
+      </if>
+      <if test="appPrivateKey != null">
+        #{appPrivateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appPublicKey != null">
+        #{appPublicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyCode != null">
+        #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="install != null">
+        #{install,jdbcType=BIT},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="partner != null">
+        #{partner,jdbcType=VARCHAR},
+      </if>
+      <if test="poundage != null">
+        #{poundage,jdbcType=DECIMAL},
+      </if>
+      <if test="safeKey != null">
+        #{safeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerEmail != null">
+        #{sellerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tenpayKey != null">
+        #{tenpayKey,jdbcType=VARCHAR},
+      </if>
+      <if test="tenpayPartner != null">
+        #{tenpayPartner,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeMode != null">
+        #{tradeMode,jdbcType=INTEGER},
+      </if>
+      <if test="wxAppsecret != null">
+        #{wxAppsecret,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAppid != null">
+        #{wxAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxPaysignkey != null">
+        #{wxPaysignkey,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        #{signType,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayAppId != null">
+        #{alipayAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayPublicKey != null">
+        #{alipayPublicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCertLocalPath != null">
+        #{wxCertLocalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="wxRsaPublic != null">
+        #{wxRsaPublic,jdbcType=VARCHAR},
+      </if>
+      <if test="stripeApiKey != null">
+        #{stripeApiKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="vc.thinker.pay.model.PayConfigExample" resultType="java.lang.Integer">
+    select count(*) from pay_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pay_config
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.alipayRate != null">
+        alipay_rate = #{record.alipayRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.appPrivateKey != null">
+        app_private_key = #{record.appPrivateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appPublicKey != null">
+        app_public_key = #{record.appPublicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyCode != null">
+        currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.install != null">
+        install = #{record.install,jdbcType=BIT},
+      </if>
+      <if test="record.mark != null">
+        mark = #{record.mark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partner != null">
+        partner = #{record.partner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poundage != null">
+        poundage = #{record.poundage,jdbcType=DECIMAL},
+      </if>
+      <if test="record.safeKey != null">
+        safe_key = #{record.safeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellerEmail != null">
+        seller_email = #{record.sellerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenpayKey != null">
+        tenpay_key = #{record.tenpayKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenpayPartner != null">
+        tenpay_partner = #{record.tenpayPartner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeMode != null">
+        trade_mode = #{record.tradeMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxAppsecret != null">
+        wx_appSecret = #{record.wxAppsecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxAppid != null">
+        wx_appid = #{record.wxAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxPaysignkey != null">
+        wx_paySignKey = #{record.wxPaysignkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payChannel != null">
+        pay_channel = #{record.payChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signType != null">
+        sign_type = #{record.signType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipayAppId != null">
+        alipay_app_id = #{record.alipayAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipayPublicKey != null">
+        alipay_public_key = #{record.alipayPublicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxCertLocalPath != null">
+        wx_cert_local_path = #{record.wxCertLocalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxRsaPublic != null">
+        wx_rsa_public = #{record.wxRsaPublic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stripeApiKey != null">
+        stripe_api_key = #{record.stripeApiKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pay_config
+    set id = #{record.id,jdbcType=BIGINT},
+      alipay_rate = #{record.alipayRate,jdbcType=DECIMAL},
+      app_private_key = #{record.appPrivateKey,jdbcType=VARCHAR},
+      app_public_key = #{record.appPublicKey,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+      install = #{record.install,jdbcType=BIT},
+      mark = #{record.mark,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      partner = #{record.partner,jdbcType=VARCHAR},
+      poundage = #{record.poundage,jdbcType=DECIMAL},
+      safe_key = #{record.safeKey,jdbcType=VARCHAR},
+      seller_email = #{record.sellerEmail,jdbcType=VARCHAR},
+      tenpay_key = #{record.tenpayKey,jdbcType=VARCHAR},
+      tenpay_partner = #{record.tenpayPartner,jdbcType=VARCHAR},
+      trade_mode = #{record.tradeMode,jdbcType=INTEGER},
+      wx_appSecret = #{record.wxAppsecret,jdbcType=VARCHAR},
+      wx_appid = #{record.wxAppid,jdbcType=VARCHAR},
+      wx_paySignKey = #{record.wxPaysignkey,jdbcType=VARCHAR},
+      pay_channel = #{record.payChannel,jdbcType=VARCHAR},
+      sign_type = #{record.signType,jdbcType=VARCHAR},
+      alipay_app_id = #{record.alipayAppId,jdbcType=VARCHAR},
+      alipay_public_key = #{record.alipayPublicKey,jdbcType=VARCHAR},
+      wx_cert_local_path = #{record.wxCertLocalPath,jdbcType=VARCHAR},
+      wx_rsa_public = #{record.wxRsaPublic,jdbcType=VARCHAR},
+      stripe_api_key = #{record.stripeApiKey,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="vc.thinker.pay.model.PayConfig">
+    update pay_config
+    <set>
+      <if test="alipayRate != null">
+        alipay_rate = #{alipayRate,jdbcType=DECIMAL},
+      </if>
+      <if test="appPrivateKey != null">
+        app_private_key = #{appPrivateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appPublicKey != null">
+        app_public_key = #{appPublicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyCode != null">
+        currency_code = #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="install != null">
+        install = #{install,jdbcType=BIT},
+      </if>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="partner != null">
+        partner = #{partner,jdbcType=VARCHAR},
+      </if>
+      <if test="poundage != null">
+        poundage = #{poundage,jdbcType=DECIMAL},
+      </if>
+      <if test="safeKey != null">
+        safe_key = #{safeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerEmail != null">
+        seller_email = #{sellerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tenpayKey != null">
+        tenpay_key = #{tenpayKey,jdbcType=VARCHAR},
+      </if>
+      <if test="tenpayPartner != null">
+        tenpay_partner = #{tenpayPartner,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeMode != null">
+        trade_mode = #{tradeMode,jdbcType=INTEGER},
+      </if>
+      <if test="wxAppsecret != null">
+        wx_appSecret = #{wxAppsecret,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAppid != null">
+        wx_appid = #{wxAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxPaysignkey != null">
+        wx_paySignKey = #{wxPaysignkey,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannel != null">
+        pay_channel = #{payChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        sign_type = #{signType,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayAppId != null">
+        alipay_app_id = #{alipayAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayPublicKey != null">
+        alipay_public_key = #{alipayPublicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCertLocalPath != null">
+        wx_cert_local_path = #{wxCertLocalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="wxRsaPublic != null">
+        wx_rsa_public = #{wxRsaPublic,jdbcType=VARCHAR},
+      </if>
+      <if test="stripeApiKey != null">
+        stripe_api_key = #{stripeApiKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="vc.thinker.pay.model.PayConfig">
+    update pay_config
+    set alipay_rate = #{alipayRate,jdbcType=DECIMAL},
+      app_private_key = #{appPrivateKey,jdbcType=VARCHAR},
+      app_public_key = #{appPublicKey,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      currency_code = #{currencyCode,jdbcType=VARCHAR},
+      install = #{install,jdbcType=BIT},
+      mark = #{mark,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      partner = #{partner,jdbcType=VARCHAR},
+      poundage = #{poundage,jdbcType=DECIMAL},
+      safe_key = #{safeKey,jdbcType=VARCHAR},
+      seller_email = #{sellerEmail,jdbcType=VARCHAR},
+      tenpay_key = #{tenpayKey,jdbcType=VARCHAR},
+      tenpay_partner = #{tenpayPartner,jdbcType=VARCHAR},
+      trade_mode = #{tradeMode,jdbcType=INTEGER},
+      wx_appSecret = #{wxAppsecret,jdbcType=VARCHAR},
+      wx_appid = #{wxAppid,jdbcType=VARCHAR},
+      wx_paySignKey = #{wxPaysignkey,jdbcType=VARCHAR},
+      pay_channel = #{payChannel,jdbcType=VARCHAR},
+      sign_type = #{signType,jdbcType=VARCHAR},
+      alipay_app_id = #{alipayAppId,jdbcType=VARCHAR},
+      alipay_public_key = #{alipayPublicKey,jdbcType=VARCHAR},
+      wx_cert_local_path = #{wxCertLocalPath,jdbcType=VARCHAR},
+      wx_rsa_public = #{wxRsaPublic,jdbcType=VARCHAR},
+      stripe_api_key = #{stripeApiKey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
